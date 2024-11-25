@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "project",
-    "slug": "project",
+    "slug": "cotetris",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -15,7 +15,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.viini.cotetris"
     },
     "web": {
       "bundler": "metro",
@@ -36,6 +37,15 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "03b74138-8a76-4fa3-96b9-ef210c233e34"
+      }
+    },
+    "owner": "viini"
   }
 }
