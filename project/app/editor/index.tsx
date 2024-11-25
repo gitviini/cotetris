@@ -6,8 +6,7 @@ import Header_default from "@/components/Header_default"
 export default function Editor(){
     return(
         <View style={styles.container}>
-            <Header_default/>
-            <Text>oi</Text>
+            <Header_default title="Editor"/>
         </View>
     )
 }
