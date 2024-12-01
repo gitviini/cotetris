@@ -1,11 +1,7 @@
 import { StyleSheet, Text, View, Image, Pressable, TouchableOpacity} from "react-native";
 import { Link } from "expo-router";
 import Svg, {Circle} from 'react-native-svg';
-
-const COLORS = {
-    yellow: "#FFC567",
-    brown: "#412929"
-}
+import COLORS from "@/assets/constants/COLORS";
 
 export default function HomePage(){
     return(
@@ -15,51 +11,47 @@ export default function HomePage(){
         resizeMode="contain"
         source={require("../../assets/images/letter_cotetris.png")}
         />
-        <Text style={{fontFamily:"monospace"}}>A combinação perfeita<br />Código + Tetris</Text>
+        <View>
+            <Text style={styles.paragraph}>A combinação perfeita</Text>
+            <Text style={styles.paragraph}>Código + Tetris</Text>
+        </View>
         <Image 
         style={styles.computer}
         resizeMode="contain"
         source={require("../../assets/gifs/computer_cotetris_playing.gif")}/>
-        <Link href={"/editor"} onPress={e=>{
-            
-        }}>
-            <Text style={styles.button}>Começar</Text>
-        </Link>
-        <Svg height={"300"} width={"100%"} style={{
-            position:"fixed",
-            zIndex:-1,
-            bottom: 0,
-            maxWidth: 550
-        }}>
-            <Circle cx="50%" cy="115%" r="50%" fill={COLORS.brown}/>
-        </Svg>
+        <Link style={styles.button} href={"/editor"}>
+            <Text>Começar</Text>
+        </Link>        
     </View>)
 }
 
 const styles = StyleSheet.create({
     container:{
         flex:1,
-        justifyContent:'space-around',
+        justifyContent:'space-between',
         alignItems:'center',
-        padding: 10,
-    },
-    paragraph:{
-        padding:20
+        backgroundColor:"transparent",
+        paddingVertical:30,
     },
     button:{
         paddingHorizontal: 30,
         paddingVertical: 10,
         fontFamily:"monospace",
         backgroundColor:COLORS.yellow,
-        boxShadow: "-5px 0 0"
+        boxShadow: "-5px 0 0",
+        fontSize:18
     },
     letter:{
         minWidth: 200,
         width:"40%",
     },
     computer:{
-        minWidth: 150,
-        width:"30%",
-        maxWidth: 200,
-    }
+        height:"20%",
+        maxHeight:200,
+        minHeight:100,
+    },
+    paragraph:{
+        fontFamily:"monospace",
+        fontSize:18,
+    },
 })

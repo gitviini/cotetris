@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     container_header:{
         height:"auto",
         width:"100%",
-        padding:5,
+        padding:10,
         flexDirection:"row",
         gap: 10,
         justifyContent:"flex-start",
@@ -29,10 +29,9 @@ const styles = StyleSheet.create({
     },
     button:{
         backgroundColor: "#FFC567",
-        width:35,
         padding: 5,
         boxShadow: "-4px 0 0",
-        marginLeft: 5,
+        marginLeft: 4,
         justifyContent:"center",
         alignItems:"center"
     },

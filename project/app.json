@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "project",
+    "name": "cotetris",
     "slug": "cotetris",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -13,7 +13,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/icon_cotetris.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.viini.cotetris"
@@ -29,7 +29,7 @@
         "expo-splash-screen",
         {
           "image": "./assets/images/icon_cotetris.png",
-          "imageWidth": 200,
+          "imageWidth": 70,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
