@@ -8,10 +8,10 @@ export default function ContainerFollow({icon,choose,bg,children}:{icon:"map"|"t
             width:(choose ? "80%" : "10%"),
             height:"100%",
             backgroundColor:bg,
-            padding:10,
+            padding:5,
             overflow:"hidden",
         }}>
-            <Ionicons name={icon} size={25}/>
+            <Ionicons name={icon} size={25} style={{marginBottom:10}}/>
             {children}
         </View>
     )
