@@ -15,7 +15,7 @@ interface Block{
 
 export default function Editor(){
     // Lista e função que configura os blocos
-    const [listBlocks,setListBlocks] = useState<Array<Block>>([{id:2,ref:"",content:null}])
+    const [listBlocks,setListBlocks] = useState<Array<Block>>([{id:2,ref:"oi",content:null}])
     // Estado da Barra de ferramentas (true=open, false=close)
     const [stateToolBar,setStateToolBar] = useState(false)
     const [followChoose,setFollowChoose] = useState([1,0,0])
@@ -36,7 +36,11 @@ export default function Editor(){
                 </Pressable>
                 <View style={styles.toolsBar}>
                     <ContainerFollow bg={COLORS.orange} icon="map" choose={followChoose[0]} callback={()=>setFollowChoose([1,0,0])}>
-                        <Text></Text>
+                        {/* BLOCK EXAMPLE */}
+                        <Pressable onPress={()=>{}} style={{borderWidth:2,borderColor:COLORS.black}}>
+                            <Text>oi</Text>
+                        </Pressable>
+
                     </ContainerFollow>
                     <ContainerFollow bg={COLORS.magenta} icon="text" choose={followChoose[1]} callback={()=>setFollowChoose([0,1,0])}>
                         <Text></Text>
