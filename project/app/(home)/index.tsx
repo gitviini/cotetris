@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Image, Pressable, TouchableOpacity} from "react-native";
 import { Link } from "expo-router";
 import Svg, {Circle} from 'react-native-svg';
-import COLORS from "@/assets/constants/COLORS";
+import COLORS from "@/assets/constants/Colors";
 
 export default function HomePage(){
     return(

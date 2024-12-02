@@ -1,8 +1,9 @@
 // Importações
 import { View, Text, StyleSheet, Pressable} from "react-native"
 import { useState } from "react"
-import COLORS from "@/assets/constants/COLORS"
+import COLORS from "@/assets/constants/Colors"
 import Header_default from "@/components/UI/Header_default"
+import ContainerFollow from "@/components/UI/ContainerFollow"
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 // Interface do blocos
@@ -15,10 +16,9 @@ interface Block{
 export default function Editor(){
     // Lista e função que configura os blocos
     const [listBlocks,setListBlocks] = useState<Array<Block>>([{id:2,ref:"oi",content:null}])
-    // Lista de Seguimentos/Follows
-    const [listFollows,setListFollows] = useState<Array<Block>>([])
     // Estado da Barra de ferramentas (true=open, false=close)
     const [stateToolBar,setStateToolBar] = useState(false)
+    const [followChoose,setFollowChoose] = useState([1,0,0])
     return(
         <View style={styles.container}>
             {/* HEADER */}
@@ -35,9 +35,15 @@ export default function Editor(){
                     <Ionicons name={(!stateToolBar ? "arrow-up" : "arrow-down")} size={25} color={"white"}/>
                 </Pressable>
                 <View style={styles.toolsBar}>
-                    {listFollows?.map((follow)=>(
-                        <></>
-                    ))}
+                    <ContainerFollow bg="#789" icon="map" choose={(followChoose[0] == 1)}>
+                        hi
+                    </ContainerFollow>
+                    <ContainerFollow bg="#456" icon="text" choose={(followChoose[1] == 1)}>
+                        hi
+                    </ContainerFollow>
+                    <ContainerFollow bg="#879" icon="image" choose={(followChoose[2] == 1)}>
+                        eita
+                    </ContainerFollow>
                 </View>
             </View>
         </View>
