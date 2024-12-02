@@ -35,14 +35,14 @@ export default function Editor(){
                     <Ionicons name={(!stateToolBar ? "arrow-up" : "arrow-down")} size={25} color={"white"}/>
                 </Pressable>
                 <View style={styles.toolsBar}>
-                    <ContainerFollow bg="#789" icon="map" choose={followChoose[0]}>
-                        hi
+                    <ContainerFollow bg={COLORS.orange} icon="map" choose={followChoose[0]} callback={()=>setFollowChoose([1,0,0])}>
+                        <Text></Text>
                     </ContainerFollow>
-                    <ContainerFollow bg="#456" icon="text" choose={followChoose[1]}>
-                        hi
+                    <ContainerFollow bg={COLORS.magenta} icon="text" choose={followChoose[1]} callback={()=>setFollowChoose([0,1,0])}>
+                        <Text></Text>
                     </ContainerFollow>
-                    <ContainerFollow bg="#879" icon="image" choose={followChoose[2]}>
-                        eita
+                    <ContainerFollow bg={COLORS.purple} icon="image" choose={followChoose[2]} callback={()=>setFollowChoose([0,0,1])}>
+                        <Text></Text>
                     </ContainerFollow>
                 </View>
             </View>
@@ -83,9 +83,10 @@ const styles = StyleSheet.create({
     },
     toolsBar:{
         flexDirection:"row",
-        backgroundColor:COLORS.yellow,
+        backgroundColor:"#000",
         width:"100%",
         height:"100%",
         borderTopWidth: 4,
+        gap:4,
     },
 })
