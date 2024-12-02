@@ -1,10 +1,10 @@
 import React from "react";
-import { View } from "react-native";
+import { View, Pressable} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-export default function ContainerFollow({icon,choose,bg,children}:{icon:"map"|"text"|"image",choose:boolean,bg:string,children:React.ReactNode}){
+export default function ContainerFollow({icon,choose,bg,children}:{icon:"map"|"text"|"image",choose:number,bg:string,children:React.ReactNode}){
     return(
-        <View style={{
+        <Pressable style={{
             width:(choose ? "80%" : "10%"),
             height:"100%",
             backgroundColor:bg,
@@ -13,6 +13,6 @@ export default function ContainerFollow({icon,choose,bg,children}:{icon:"map"|"t
         }}>
             <Ionicons name={icon} size={25} style={{marginBottom:10}}/>
             {children}
-        </View>
+        </Pressable>
     )
 }

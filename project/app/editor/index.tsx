@@ -15,7 +15,7 @@ interface Block{
 
 export default function Editor(){
     // Lista e função que configura os blocos
-    const [listBlocks,setListBlocks] = useState<Array<Block>>([{id:2,ref:"oi",content:null}])
+    const [listBlocks,setListBlocks] = useState<Array<Block>>([{id:2,ref:"",content:null}])
     // Estado da Barra de ferramentas (true=open, false=close)
     const [stateToolBar,setStateToolBar] = useState(false)
     const [followChoose,setFollowChoose] = useState([1,0,0])
@@ -35,13 +35,13 @@ export default function Editor(){
                     <Ionicons name={(!stateToolBar ? "arrow-up" : "arrow-down")} size={25} color={"white"}/>
                 </Pressable>
                 <View style={styles.toolsBar}>
-                    <ContainerFollow bg="#789" icon="map" choose={(followChoose[0] == 1)}>
+                    <ContainerFollow bg="#789" icon="map" choose={followChoose[0]}>
                         hi
                     </ContainerFollow>
-                    <ContainerFollow bg="#456" icon="text" choose={(followChoose[1] == 1)}>
+                    <ContainerFollow bg="#456" icon="text" choose={followChoose[1]}>
                         hi
                     </ContainerFollow>
-                    <ContainerFollow bg="#879" icon="image" choose={(followChoose[2] == 1)}>
+                    <ContainerFollow bg="#879" icon="image" choose={followChoose[2]}>
                         eita
                     </ContainerFollow>
                 </View>
