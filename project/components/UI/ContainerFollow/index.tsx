@@ -7,13 +7,17 @@ export default function ContainerFollow({callback,choose,icon,bg,children}:{call
     return(
         <Pressable style={{
             width:(choose ? "80%" : "10%"),
+            minWidth:30,
             height:"100%",
             backgroundColor:bg,
             padding:5,
-            overflow:"hidden",
+            cursor:"auto",
+            justifyContent:"flex-start",
+            alignItems:"flex-start",
+            gap:5,
         }}
         onPress={callback}>
-            <Ionicons name={icon} size={25} style={{marginBottom:10}}/>
+            <Ionicons name={icon} size={25} style={{marginBottom:5}}/>
             {children}
         </Pressable>
     )

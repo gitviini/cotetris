@@ -1,51 +1,72 @@
-// Importações
-import { View, Text, StyleSheet, Pressable} from "react-native"
+// Importações de Libs e Constantes
+import { View, ScrollView, SafeAreaView, Text, StyleSheet, Pressable } from "react-native"
 import { useState } from "react"
 import COLORS from "@/assets/constants/Colors"
+import Ionicons from '@expo/vector-icons/Ionicons';
+import Block from "@/assets/constants/BlockInterface";
+
+// Importações de componentes
 import Header_default from "@/components/UI/Header_default"
 import ContainerFollow from "@/components/UI/ContainerFollow"
-import Ionicons from '@expo/vector-icons/Ionicons';
+import BlockModel from "@/components/UI/BlockModel";
+import listAllBlocks from "@/assets/constants/listAllBlocks";
 
-// Interface do blocos
-interface Block{
-    id:number,
-    ref:string,
-    content:string | number | null,
-}
-
-export default function Editor(){
+export default function Editor() {
     // Lista e função que configura os blocos
-    const [listBlocks,setListBlocks] = useState<Array<Block>>([{id:2,ref:"oi",content:null}])
+    const [listBlocks, setListBlocks] = useState<Array<Block>>([
+        listAllBlocks.listContainers[0]
+    ])
     // Estado da Barra de ferramentas (true=open, false=close)
-    const [stateToolBar,setStateToolBar] = useState(false)
-    const [followChoose,setFollowChoose] = useState([1,0,0])
-    return(
+    const [stateToolBar, setStateToolBar] = useState(false)
+    // Lista de qual Seguimento foi escolhido (1) ou não (0)
+    const [followChoose, setFollowChoose] = useState([1, 0, 0])
+    // Bloco selecionado
+    const [selectBlock, setSelectBlock] = useState<Block>(listAllBlocks.listContainers[0])
+    return (
         <View style={styles.container}>
             {/* HEADER */}
-            <Header_default title="Editor"/>
+            <Header_default title="Editor" />
             {/* CONTAINER EDITOR */}
-            <View>
-                {listBlocks?.map((block)=>(
-                    <Text key={block.id}>{block.ref}</Text>
-                ))}
+            <View style={{ width: "100%", height: (stateToolBar ? "50%" : "100%"), paddingBottom: (stateToolBar ? 25 : 110) }}>
+                <ScrollView contentContainerStyle={styles.containerBlocks}>
+                    {listBlocks?.map(block => (
+                        <BlockModel select={()=>setSelectBlock(block)} block={block} key={block.id} />
+                    ))}
+
+                    <Pressable
+                        style={styles.blockPlus}
+                        onPress={() => {
+                            setListBlocks([...listBlocks, {
+                                id:listBlocks.length+1,
+                                content:selectBlock.content,
+                                follow:selectBlock.follow,
+                                ref:selectBlock.ref,
+                                setContent:selectBlock.setContent,
+                            }])
+                            console.log(listBlocks)
+                        }}>
+                        <Text>+</Text>
+                    </Pressable>
+                </ScrollView>
             </View>
             {/* TOOLBAR CONTAINER */}
-            <View style={(!stateToolBar ? styles.containerToolsBar : styles.containerToolsBarOpen)}>
-                <Pressable style={styles.buttonToolsBar} onPress={()=>setStateToolBar(!stateToolBar)}>
-                    <Ionicons name={(!stateToolBar ? "arrow-up" : "arrow-down")} size={25} color={"white"}/>
+            <View style={(stateToolBar ? styles.containerToolsBarOpen : styles.containerToolsBar)}>
+                <Pressable style={styles.buttonToolsBar} onPress={() => setStateToolBar(!stateToolBar)}>
+                    <Ionicons name={(stateToolBar ? "arrow-down" : "arrow-up")} size={25} color={"white"} />
                 </Pressable>
                 <View style={styles.toolsBar}>
-                    <ContainerFollow bg={COLORS.orange} icon="map" choose={followChoose[0]} callback={()=>setFollowChoose([1,0,0])}>
+                    <ContainerFollow bg={COLORS.orange} icon="map" choose={followChoose[0]} callback={() => setFollowChoose([1, 0, 0])}>
                         {/* BLOCK EXAMPLE */}
-                        <Pressable onPress={()=>{}} style={{borderWidth:2,borderColor:COLORS.black}}>
-                            <Text>oi</Text>
-                        </Pressable>
-
+                        {listAllBlocks.listContainers?.map(block => (
+                            <BlockModel select={()=>setSelectBlock(block)} block={block} key={block.id} />
+                        ))}
                     </ContainerFollow>
-                    <ContainerFollow bg={COLORS.magenta} icon="text" choose={followChoose[1]} callback={()=>setFollowChoose([0,1,0])}>
-                        <Text></Text>
+                    <ContainerFollow bg={COLORS.magenta} icon="text" choose={followChoose[1]} callback={() => setFollowChoose([0, 1, 0])}>
+                        {listAllBlocks.listTexts?.map(block => (
+                            <BlockModel select={()=>setSelectBlock(block)} block={block} key={block.id} />
+                        ))}
                     </ContainerFollow>
-                    <ContainerFollow bg={COLORS.purple} icon="image" choose={followChoose[2]} callback={()=>setFollowChoose([0,0,1])}>
+                    <ContainerFollow bg={COLORS.purple} icon="image" choose={followChoose[2]} callback={() => setFollowChoose([0, 0, 1])}>
                         <Text></Text>
                     </ContainerFollow>
                 </View>
@@ -55,42 +76,56 @@ export default function Editor(){
 }
 
 const styles = StyleSheet.create({
-    container:{
-        flex:1,
-        justifyContent:"flex-start",
-        alignItems:"center",
-        gap: 10,
+    container: {
+        flex: 1,
+        flexDirection: "column",
+        justifyContent: "flex-start",
+        alignItems: "center",
     },
-    containerToolsBar:{
-        position:"absolute",
-        bottom:0,
-        flexDirection:"column",
-        width:"100%",
-        height:80,
+    containerBlocks: {
+        width: "100%",
+        justifyContent: "center",
+        alignItems: "flex-start",
+        gap: 5,
+        paddingHorizontal: 10,
     },
-    containerToolsBarOpen:{
-        position:"absolute",
-        bottom:0,
-        flexDirection:"column",
-        width:"100%",
-        height:"50%",
+    containerToolsBar: {
+        position: "absolute",
+        bottom: 0,
+        flexDirection: "column",
+        width: "100%",
+        height: 80,
     },
-    buttonToolsBar:{
-        padding:5,
-        boxShadow:"-4px 0 0 #000",
-        justifyContent:"center",
-        alignItems:"center",
-        backgroundColor:"#456",
-        alignSelf:"flex-end",
-        marginRight:14,
-        cursor:"pointer"
+    containerToolsBarOpen: {
+        position: "absolute",
+        bottom: 0,
+        flexDirection: "column",
+        width: "100%",
+        height: "50%",
     },
-    toolsBar:{
-        flexDirection:"row",
-        backgroundColor:"#000",
-        width:"100%",
-        height:"100%",
+    buttonToolsBar: {
+        padding: 5,
+        boxShadow: "-4px 0 0 #000",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#456",
+        alignSelf: "flex-end",
+        marginRight: 14,
+    },
+    toolsBar: {
+        flexWrap: "nowrap",
+        flexDirection: "row",
+        backgroundColor: "#000",
+        width: "100%",
+        height: "100%",
         borderTopWidth: 4,
-        gap:4,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    blockPlus: {
+        backgroundColor: "#789",
+        padding: 5,
+        borderColor: "#000",
+        borderLeftWidth: 4,
     },
 })
