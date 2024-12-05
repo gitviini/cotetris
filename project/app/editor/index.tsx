@@ -16,6 +16,8 @@ export default function Editor() {
     const [listBlocks, setListBlocks] = useState<Array<Block>>([
         listAllBlocks.listContainers[0]
     ])
+
+    let numberOfContainers = 0
     // Estado da Barra de ferramentas (true=open, false=close)
     const [stateToolBar, setStateToolBar] = useState(false)
     // Lista de qual Seguimento foi escolhido (1) ou não (0)
@@ -27,26 +29,29 @@ export default function Editor() {
             {/* HEADER */}
             <Header_default title="Editor" />
             {/* CONTAINER EDITOR */}
-            <View style={{ width: "100%", height: (stateToolBar ? "50%" : "100%"), paddingBottom: (stateToolBar ? 25 : 110) }}>
+            <View style={{ width: "100%", height: (stateToolBar ? "45%" : "95%"), paddingBottom: (stateToolBar ? 25 : 110) }}>
                 <ScrollView contentContainerStyle={styles.containerBlocks}>
-                    {listBlocks?.map(block => (
-                        <BlockModel select={()=>setSelectBlock(block)} block={block} key={block.id} />
-                    ))}
-
-                    <Pressable
-                        style={styles.blockPlus}
-                        onPress={() => {
-                            setListBlocks([...listBlocks, {
-                                id:listBlocks.length+1,
-                                content:selectBlock.content,
-                                follow:selectBlock.follow,
-                                ref:selectBlock.ref,
-                                setContent:selectBlock.setContent,
-                            }])
-                            console.log(listBlocks)
-                        }}>
-                        <Text>+</Text>
-                    </Pressable>
+                    {listBlocks?.map(block => {
+                        block.follow == "container" ? numberOfContainers += 1 : {}
+                        return (
+                            <BlockModel style={{ marginLeft: 12 * (numberOfContainers - 1) }} select={() => { }} block={block} key={block.id} />
+                        )
+                    })}
+                    <View style={{ marginLeft: 12 * (numberOfContainers - 1) }}>
+                        <Pressable
+                            style={styles.blockPlus}
+                            onPress={() => {
+                                setListBlocks([...listBlocks, {
+                                    id: listBlocks.length + 1,
+                                    content: selectBlock.content,
+                                    follow: selectBlock.follow,
+                                    ref: selectBlock.ref,
+                                    setContent: selectBlock.setContent,
+                                }])
+                            }}>
+                            <Text>+</Text>
+                        </Pressable>
+                    </View>
                 </ScrollView>
             </View>
             {/* TOOLBAR CONTAINER */}
@@ -58,12 +63,12 @@ export default function Editor() {
                     <ContainerFollow bg={COLORS.orange} icon="map" choose={followChoose[0]} callback={() => setFollowChoose([1, 0, 0])}>
                         {/* BLOCK EXAMPLE */}
                         {listAllBlocks.listContainers?.map(block => (
-                            <BlockModel select={()=>setSelectBlock(block)} block={block} key={block.id} />
+                            <BlockModel select={() => setSelectBlock(block)} block={block} key={block.id} />
                         ))}
                     </ContainerFollow>
                     <ContainerFollow bg={COLORS.magenta} icon="text" choose={followChoose[1]} callback={() => setFollowChoose([0, 1, 0])}>
                         {listAllBlocks.listTexts?.map(block => (
-                            <BlockModel select={()=>setSelectBlock(block)} block={block} key={block.id} />
+                            <BlockModel select={() => setSelectBlock(block)} block={block} key={block.id} />
                         ))}
                     </ContainerFollow>
                     <ContainerFollow bg={COLORS.purple} icon="image" choose={followChoose[2]} callback={() => setFollowChoose([0, 0, 1])}>

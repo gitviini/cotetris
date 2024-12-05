@@ -1,13 +1,13 @@
-import { GestureResponderEvent, Pressable, View, Text, TextInput, StyleSheet } from "react-native"
+import { GestureResponderEvent, Pressable, View, Text, TextInput, StyleSheet, StyleProp, ViewStyle } from "react-native"
 import Block from "@/assets/constants/BlockInterface";
 import COLORS from "@/assets/constants/Colors";
 
-export default function BlockModel({ block, select }: { block: Block, select: ((event: GestureResponderEvent) => void)}) {
+export default function BlockModel({ block, select, style }: { block: Block, select: ((event: GestureResponderEvent) => void), style: StyleProp<ViewStyle> }) {
     if (block.follow == "container") {
         switch (block.ref) {
             case "View":
                 return (
-                    <>
+                    <View style={style}>
                         <Pressable onPress={select} style={styles.blockContainer}>
                             <Text style={{
                                 minWidth: 80,
@@ -21,7 +21,7 @@ export default function BlockModel({ block, select }: { block: Block, select: ((
                             </View>
                         </View>
                         <Pressable style={styles.blockContainerEnd}><Text>{block.ref}</Text></Pressable> */}
-                    </>
+                    </View>
                 )
             default:
                 return (
@@ -33,13 +33,17 @@ export default function BlockModel({ block, select }: { block: Block, select: ((
         switch (block.ref) {
             case "Text":
                 return (
-                    <Pressable onPress={select} style={styles.blockText}>
-                        <Text style={{
-                            minWidth: 80,
-                            width: "auto",
-                        }}>{block.ref}</Text>
-                        <TextInput placeholder={`${block.content}`} style={{ backgroundColor: "#fff", paddingHorizontal: 5 }}></TextInput>
-                    </Pressable>
+                    <View style={style}>
+                        <Pressable onPress={select} style={styles.blockText}>
+                            <Text>{block.ref}</Text>
+                            <TextInput
+                                placeholder={`${block.content}`}
+                                onChange={e=>{
+                                    block.content = e?.target?.value
+                                }}
+                                style={{ backgroundColor: "#fff", paddingHorizontal: 5 }}></TextInput>
+                        </Pressable>
+                    </View>
                 )
             default:
                 return (
@@ -81,6 +85,7 @@ const styles = StyleSheet.create({
         borderLeftWidth: 4,
         borderColor: "#000",
         padding: 5,
+        gap: 10,
         paddingRight: 10,
         overflow: "hidden",
         width: "auto",
