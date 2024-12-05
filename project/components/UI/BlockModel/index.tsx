@@ -41,7 +41,7 @@ export default function BlockModel({ block, select, style }: { block: Block, sel
                                 onChange={e=>{
                                     block.content = e?.target?.value
                                 }}
-                                style={{ backgroundColor: "#fff", paddingHorizontal: 5 }}></TextInput>
+                                style={{ backgroundColor: "#fff", padding: 10, borderTopRightRadius: 5, borderBottomRightRadius: 5, borderLeftWidth: 4, borderColor: "#000"}}></TextInput>
                         </Pressable>
                     </View>
                 )
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         borderLeftWidth: 4,
         borderColor: "#000",
-        padding: 5,
+        padding: 15,
         overflow: "hidden",
         width: "auto",
         height: "auto",
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         borderLeftWidth: 4,
         borderColor: "#000",
-        padding: 5,
+        padding: 15,
         overflow: "hidden",
         width: "auto",
         height: "auto",
@@ -84,9 +84,8 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         borderLeftWidth: 4,
         borderColor: "#000",
-        padding: 5,
-        gap: 10,
-        paddingRight: 10,
+        padding: 15,
+        gap: 20,
         overflow: "hidden",
         width: "auto",
         height: "auto",

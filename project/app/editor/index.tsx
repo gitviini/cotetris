@@ -49,7 +49,7 @@ export default function Editor() {
                                     setContent: selectBlock.setContent,
                                 }])
                             }}>
-                            <Text>+</Text>
+                            <Ionicons name={"add"} size={25}/>
                         </Pressable>
                     </View>
                 </ScrollView>
@@ -63,12 +63,12 @@ export default function Editor() {
                     <ContainerFollow bg={COLORS.orange} icon="map" choose={followChoose[0]} callback={() => setFollowChoose([1, 0, 0])}>
                         {/* BLOCK EXAMPLE */}
                         {listAllBlocks.listContainers?.map(block => (
-                            <BlockModel select={() => setSelectBlock(block)} block={block} key={block.id} />
+                            <BlockModel style={{}} select={() => setSelectBlock(block)} block={block} key={block.id} />
                         ))}
                     </ContainerFollow>
                     <ContainerFollow bg={COLORS.magenta} icon="text" choose={followChoose[1]} callback={() => setFollowChoose([0, 1, 0])}>
                         {listAllBlocks.listTexts?.map(block => (
-                            <BlockModel select={() => setSelectBlock(block)} block={block} key={block.id} />
+                            <BlockModel style={{}} select={() => setSelectBlock(block)} block={block} key={block.id} />
                         ))}
                     </ContainerFollow>
                     <ContainerFollow bg={COLORS.purple} icon="image" choose={followChoose[2]} callback={() => setFollowChoose([0, 0, 1])}>
